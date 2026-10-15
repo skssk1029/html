@@ -1,119 +1,575 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="ko">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Jinx Story | Layout: Grid</title>
+    <title>All Life</title>
     <link
       rel="stylesheet"
-      as="style"
       crossorigin
       href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css"
     />
-    <link rel="stylesheet" href="../../../styles/home.css" />
-    <link rel="stylesheet" href="./style.css" />
+    <style>
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+      :root {
+        --orange: #f4521e;
+        --orange-dark: #d94010;
+        --cream: #f5f0e8;
+        --lavender: #e8deff;
+        --text-dark: #1a1a1a;
+        --text-mid: #555;
+        --white: #fff;
+        --font: "Pretendard Variable", Pretendard, sans-serif;
+      }
+      html {
+        scroll-behavior: smooth;
+      }
+      body {
+        font-family: var(--font);
+        background: var(--cream);
+        color: var(--text-dark);
+        overflow-x: hidden;
+      }
+      a {
+        text-decoration: none;
+        color: inherit;
+      }
+
+      /* ── COMMON BACKGROUND IMAGE STYLE ── */
+      /* 백그라운드 이미지를 위한 공통 속성 */
+      .bg-image-box {
+        width: 100%;
+        background-size: contain;
+        background-position: center;
+        background-repeat: no-repeat;
+      }
+
+      /* ── HEADER ── */
+      .sticky-header {
+        position: sticky;
+        top: 0;
+        z-index: 100;
+        background: var(--cream);
+        border-bottom: 1.5px solid rgba(0, 0, 0, 0.07);
+      }
+      .header-inner {
+        max-width: 1100px;
+        margin: 0 auto;
+        padding: 0 40px;
+        height: 58px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+      }
+      .logo {
+        font-size: 19px;
+        font-weight: 900;
+        color: var(--orange);
+        font-style: italic;
+        letter-spacing: -0.5px;
+      }
+      .logo span {
+        color: var(--text-dark);
+        font-style: normal;
+      }
+      .nav-menu {
+        display: flex;
+        gap: 36px;
+      }
+      .nav-menu a {
+        font-size: 14px;
+        font-weight: 500;
+        color: var(--text-mid);
+        transition: color 0.2s;
+      }
+      .nav-menu a:hover {
+        color: var(--orange);
+      }
+
+      /* ── HERO ── */
+      .hero {
+        background: var(--orange);
+        overflow: hidden;
+        position: relative;
+      }
+      .hero-inner {
+        max-width: 1100px;
+        margin: 0 auto;
+        padding: 56px 40px 0;
+        display: flex;
+        align-items: flex-end;
+        justify-content: space-between;
+        gap: 24px;
+      }
+      .hero-text {
+        flex: 1;
+        padding-bottom: 56px;
+      }
+      .hero-text .eyebrow {
+        font-size: 14px;
+        font-weight: 600;
+        color: rgba(255, 255, 255, 0.85);
+        margin-bottom: 8px;
+      }
+      .hero-text h1 {
+        font-size: clamp(26px, 3.8vw, 46px);
+        font-weight: 900;
+        color: var(--white);
+        line-height: 1.18;
+        letter-spacing: -1px;
+        margin-bottom: 16px;
+      }
+      .hero-text h1 em {
+        font-style: italic;
+      }
+      .hero-text p {
+        font-size: 14px;
+        color: rgba(255, 255, 255, 0.82);
+        line-height: 1.7;
+        margin-bottom: 28px;
+        max-width: 320px;
+      }
+      .btn-primary {
+        display: inline-block;
+        background: var(--cream);
+        color: var(--orange);
+        font-size: 13px;
+        font-weight: 700;
+        padding: 11px 24px;
+        border-radius: 24px;
+        transition:
+          transform 0.15s,
+          box-shadow 0.15s;
+      }
+      .btn-primary:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.18);
+      }
+
+      /* Hero Background Image */
+      .hero-img-wrap {
+        flex-shrink: 0;
+        width: min(48%, 520px);
+        align-self: flex-end;
+      }
+      .hero-bg-img {
+        height: 350px;
+        background-position: bottom; /* 하단 정렬 */
+      }
+
+      .hero-dots {
+        position: absolute;
+        left: 42%;
+        bottom: 60px;
+        display: flex;
+        gap: 10px;
+        align-items: center;
+      }
+      .hero-dots span {
+        background: rgba(255, 255, 255, 0.45);
+        border-radius: 50%;
+        display: block;
+      }
+      .hero-dots span:nth-child(1) {
+        width: 10px;
+        height: 10px;
+      }
+      .hero-dots span:nth-child(2) {
+        width: 16px;
+        height: 16px;
+      }
+      .hero-dots span:nth-child(3) {
+        width: 22px;
+        height: 22px;
+      }
+
+      /* ── ALL IN ONE ── */
+      .allinone {
+        background: var(--cream);
+        padding: 88px 40px;
+        text-align: center;
+      }
+      .allinone .sub {
+        font-size: 22px;
+        font-weight: 800;
+        font-style: italic;
+        color: var(--orange);
+        margin-bottom: 14px;
+      }
+      .allinone p {
+        font-size: 14.5px;
+        color: var(--text-mid);
+        line-height: 1.85;
+        margin-bottom: 44px;
+      }
+      .video-placeholder {
+        max-width: 860px;
+        margin: 0 auto;
+        background: #d5cfca;
+        border-radius: 18px;
+        height: 400px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 15px;
+        color: #888;
+        font-weight: 500;
+      }
+
+      /* ── CHECK SECTION ── */
+      .check-section {
+        background: var(--orange);
+        padding: 64px 40px 0;
+        overflow: hidden;
+      }
+      .check-inner {
+        max-width: 1100px;
+        margin: 0 auto;
+        display: grid;
+        grid-template-columns: 1fr auto;
+        gap: 40px;
+        align-items: start;
+      }
+      .check-text h2 {
+        font-size: clamp(20px, 3vw, 34px);
+        font-weight: 900;
+        color: var(--white);
+        line-height: 1.3;
+        margin-bottom: 12px;
+        letter-spacing: -0.5px;
+      }
+      .check-text p {
+        font-size: 14px;
+        color: rgba(255, 255, 255, 0.8);
+        line-height: 1.7;
+      }
+      .check-boxes {
+        display: flex;
+        gap: 12px;
+        align-items: center;
+        margin-top: 32px;
+        flex-wrap: wrap;
+      }
+      .check-box {
+        width: 58px;
+        height: 58px;
+        border: 3px solid rgba(255, 255, 255, 0.55);
+        border-radius: 14px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: var(--white);
+        font-size: 30px;
+        font-weight: 900;
+      }
+      .check-right {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        position: relative;
+        width: min(500px, 52vw);
+      }
+
+      /* Check Character Background Image */
+      .check-char-bg {
+        height: 350px;
+        background-position: bottom;
+      }
+
+      .service-note {
+        position: absolute;
+        right: 0;
+        bottom: 20px;
+        font-size: 11px;
+        color: rgba(255, 255, 255, 0.65);
+      }
+
+      /* ── SERVICES ── */
+      .services {
+        background: var(--cream);
+        padding: 88px 40px;
+      }
+      .services-inner {
+        max-width: 1100px;
+        margin: 0 auto;
+      }
+      .section-label {
+        text-align: center;
+        font-size: 22px;
+        font-style: italic;
+        font-weight: 800;
+        color: var(--orange);
+        margin-bottom: 64px;
+      }
+      .service-row {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 40px 72px;
+        align-items: center;
+        margin-bottom: 80px;
+      }
+      .service-row:last-child {
+        margin-bottom: 0;
+      }
+      .service-row.reverse .service-img {
+        order: 2;
+      }
+      .service-row.reverse .service-text {
+        order: 1;
+      }
+
+      /* Service Background Image */
+      .service-img {
+        width: 100%;
+      }
+      .service-bg-img {
+        height: 280px;
+      }
+
+      .service-text h3 {
+        font-size: clamp(17px, 2.2vw, 22px);
+        font-weight: 800;
+        color: var(--text-dark);
+        line-height: 1.4;
+        margin-bottom: 12px;
+        letter-spacing: -0.5px;
+      }
+      .service-text p {
+        font-size: 14px;
+        color: var(--text-mid);
+        line-height: 1.85;
+        margin-bottom: 22px;
+      }
+      .btn-service {
+        display: inline-block;
+        background: var(--orange);
+        color: var(--white);
+        font-size: 12px;
+        font-weight: 700;
+        padding: 10px 22px;
+        border-radius: 20px;
+        transition:
+          background 0.2s,
+          transform 0.15s;
+      }
+      .btn-service:hover {
+        background: var(--orange-dark);
+        transform: translateY(-2px);
+      }
+
+      /* ── FOOTER ── */
+      footer {
+        background: var(--cream);
+        border-top: 1.5px solid rgba(0, 0, 0, 0.08);
+        padding: 24px 40px;
+      }
+      .footer-inner {
+        max-width: 1100px;
+        margin: 0 auto;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+      }
+      .footer-inner span {
+        font-size: 12px;
+        color: #999;
+      }
+      .footer-links {
+        display: flex;
+        gap: 20px;
+      }
+      .footer-links a {
+        font-size: 12px;
+        color: #999;
+        transition: color 0.2s;
+      }
+      .footer-links a:hover {
+        color: var(--orange);
+      }
+
+      @media (max-width: 768px) {
+        .hero-inner {
+          flex-direction: column;
+          align-items: flex-start;
+        }
+        .hero-img-wrap {
+          width: 100%;
+          max-width: 380px;
+          align-self: center;
+        }
+        .check-inner {
+          grid-template-columns: 1fr;
+          text-align: center;
+        }
+        .check-boxes {
+          justify-content: center;
+        }
+        .check-right {
+          width: 100%;
+        }
+        .service-row,
+        .service-row.reverse {
+          grid-template-columns: 1fr;
+        }
+        .service-row.reverse .service-img,
+        .service-row.reverse .service-text {
+          order: unset;
+        }
+      }
+    </style>
   </head>
   <body>
-    <header class="sticky-header grid-wrapper">
+    <header class="sticky-header">
       <div class="header-inner">
-        <h4 class="logo">
-          <a
-            href="../../../index.html"
-            style="text-decoration: none; color: inherit"
-            >Jinxwiki</a
-          >
-        </h4>
+        <h4 class="logo"><em>All</em> <span>Life</span></h4>
         <nav class="nav-menu">
-          <a href="#">Meaning</a>
-          <a href="#">Derivation</a>
-          <a href="../reason/index.html">Reason</a>
+          <a href="#">Home</a>
+          <a href="#">Service</a>
+          <a href="#">Mobile</a>
         </nav>
       </div>
     </header>
 
-    <div class="elem | wrapper flow">
-      <section class="section flow layout-group">
-        <h2 class="layout-title">Reason</h2>
-        <div class="layout-grid-4">
-          <article class="layout-card">
-            <h4 class="card-desc">인식의 한계와, 설명하고 싶은 마음</h4>
-            <div class="card-content">
-              <div
-                class="card-box tall"
-                style="background-image: url('../../../snap/q1.png')"
-              ></div>
-              <p>
-                사람들은 우연히 일어난 사건과 불길한 결과를 서로 연결하여 의미를
-                만들었습니다. 설명할 수 없는 것을 어떻게든 설명하기
-                위해서입니다. 완벽하게 맞는 설명은 아니지만, ‘아무 이유
-                없음’보다 ‘엉성한 이유라도 있는 상태’가 인간에게는 더 편하기
-                때문입니다.
-              </p>
-            </div>
-          </article>
-
-          <article class="layout-card">
-            <p class="card-desc">상징으로 생각하는 사고 방식</p>
-            <div class="card-content">
-              <div
-                class="card-box tall"
-                style="background-image: url('../../../snap/q3.png')"
-              ></div>
-              <p>
-                우리는 언어와 이미지, 소리를 단순한 정보가 아니라 상징으로
-                받아들입니디. 인간은 언어적 유사성, 이미지, 느낌을 통해 의미를
-                만들어 냅니다. 의미가 반복되면, 왠지 찝찝해서 피해야 하는 것이
-                되고, 결국 금기와 징크스로 굳어지게 됩니다.
-              </p>
-            </div>
-          </article>
-
-          <article class="layout-card">
-            <p class="card-desc">학습과 우연적 보상</p>
-            <div class="card-content">
-              <div
-                class="card-box tall"
-                style="background-image: url('../../../snap/q2.png')"
-              ></div>
-              <p>
-                보상이 주어지는 행동은 다시 반복될 가능성이 높다고 합니다. 어떤
-                행동을 했는데 그 직후에 좋은 일이 일어나면, 우리는 그 둘 사이를
-                쉽게 이어 버립니다. 한두 번이면 우연이라 넘기겠지만, 비슷한
-                경험이 몇 번 더 쌓이면 그것은 점점 나만의 법칙처럼 느껴집니다.
-              </p>
-            </div>
-          </article>
-
-          <article class="layout-card">
-            <p class="card-desc">개인의 심리적 불안</p>
-            <div class="card-content">
-              <div
-                class="card-box tall"
-                style="background-image: url('../../../snap/q4.png')"
-              ></div>
-              <p>
-                징크스는 마음속에서 이렇게 이야기합니다. "이날은 이런 행동만
-                피하면 돼.” “이 물건만 꼭 챙기면 괜찮을 거야.” 실제로 과학적
-                근거는 없지만, 그 생각 덕분에 마음이 조금이라도 안정된다면, 그
-                사람에게 징크스는 꽤 쓸 만한 도구가 됩니다. 그래서 사람들은 작은
-                규칙을 계속 만들어 냅니다.
-              </p>
-            </div>
-          </article>
+    <section class="hero">
+      <div class="hero-inner">
+        <div class="hero-text">
+          <p class="eyebrow">당신의 일상을</p>
+          <h1><em>All Life</em> 로 관리<br />해보세요!</h1>
+          <p>당신에게 가장 필요한 순간에 가장 적합한 서비스를 제공합니다.</p>
+          <a href="#services" class="btn-primary">Go to Service</a>
         </div>
-      </section>
+        <div class="hero-img-wrap">
+          <div
+            class="bg-image-box hero-bg-img"
+            style="background-image: url(&quot;./snap/6.png&quot;)"
+          ></div>
+        </div>
+      </div>
+      <div class="hero-dots"><span></span><span></span><span></span></div>
+    </section>
 
-      <section class="section | flow">
-        <footer class="layout-footer">
-          <div class="footer-content">
-            <span>© Jinxwiki</span>
-            <nav class="footer-links">
-              <a href="#">About</a>
-              <a href="#">Tag</a>
-            </nav>
+    <section class="allinone">
+      <p class="sub">All in one Life</p>
+      <p>
+        모든 일상을 통합해보세요.<br />클릭 한 번의 동의 만으로 효율적인 삶을
+        경험할 수 있어요.
+      </p>
+      <div class="video-placeholder">광고영상</div>
+    </section>
+
+    <section class="check-section">
+      <div class="check-inner">
+        <div class="check-left">
+          <div class="check-text">
+            <h2>필요한 것은 단 하나!<br />당신의 동의면 충분합니다.</h2>
+            <p>체크 한번으로 간편하게 효율적인 삶을 누려보세요!</p>
           </div>
-        </footer>
-      </section>
-    </div>
+          <div class="check-boxes">
+            <div class="check-box">✓</div>
+            <div class="check-box">✓</div>
+            <div class="check-box">✓</div>
+            <div class="check-box">✓</div>
+            <div class="check-box">✓</div>
+          </div>
+        </div>
+        <div class="check-right">
+          <div
+            class="bg-image-box check-char-bg"
+            style="background-image: url(&quot;./snap/6.png&quot;)"
+          ></div>
+          <p class="service-note">* 서비스 이용약관에 동의를 해주세요.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="services" id="services">
+      <div class="services-inner">
+        <p class="section-label">Our service</p>
+
+        <div class="service-row">
+          <div class="service-img">
+            <div
+              class="bg-image-box service-bg-img"
+              style="background-image: url(&quot;./snap/6.png&quot;)"
+            ></div>
+          </div>
+          <div class="service-text">
+            <h3>실시간 위치 기반 서비스</h3>
+            <p>
+              현재 위치를 분석하여 주변 맛집, 편의시설, 맞춤 정보를
+              제공합니다.<br />언제 어디서든, 당신에게 최적의 선택을 안내합니다.
+            </p>
+            <a href="#" class="btn-service">Go to Service</a>
+          </div>
+        </div>
+
+        <div class="service-row reverse">
+          <div class="service-img">
+            <div
+              class="bg-image-box service-bg-img"
+              style="background-image: url(&quot;./snap/6.png&quot;)"
+            ></div>
+          </div>
+          <div class="service-text">
+            <h3>카메라 &amp; 이미지 기반 스타일 관리</h3>
+            <p>
+              당신의 패턴과 취향을 분석하여 오늘의 착장을 추천하고,<br />가상
+              피팅으로 대한 확인할 수 있습니다.
+            </p>
+            <a href="#" class="btn-service">Go to Service</a>
+          </div>
+        </div>
+
+        <div class="service-row">
+          <div class="service-img">
+            <div
+              class="bg-image-box service-bg-img"
+              style="background-image: url(&quot;./snap/6.png&quot;)"
+            ></div>
+          </div>
+          <div class="service-text">
+            <h3>음성 데이터 기반 맞춤 광고</h3>
+            <p>
+              일부 속 음성을 기반으로 24시간 음성 데이터를 분석하여<br />더
+              정확한 광고 서비스를 제공합니다.
+            </p>
+            <a href="#" class="btn-service">Go to Service</a>
+          </div>
+        </div>
+
+        <div class="service-row reverse">
+          <div class="service-img">
+            <div
+              class="bg-image-box service-bg-img"
+              style="background-image: url(&quot;./snap/6.png&quot;)"
+            ></div>
+          </div>
+          <div class="service-text">
+            <h3>스팸 차단, 통화 요약 정리 서비스</h3>
+            <p>
+              주소록 &amp; 통화 기록을 연동하여<br />더 연락하고 효율적인
+              커뮤니케이션을 지원합니다.
+            </p>
+            <a href="#" class="btn-service">Go to Service</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <footer>
+      <div class="footer-inner">
+        <span>© All Life</span>
+        <nav class="footer-links">
+          <a href="#">About</a>
+          <a href="#">Tag</a>
+        </nav>
+      </div>
+    </footer>
   </body>
 </html>

@@ -1,0 +1,643 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>All Life</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;900&family=Nunito:ital,wght@0,700;0,900;1,800&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Agbalumo&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      :root {
+        --green: #09f490;
+        --green-dark: #1db860;
+        --green-light: #d4f5e2;
+        --green-pale: #edfaf3;
+        --green-mid: #a8eaca;
+        --white: #ffffff;
+        --text: #004b2b;
+        --text-sub: #555;
+        --radius: 18px;
+      }
+
+      html {
+        scroll-behavior: smooth;
+      }
+
+      body {
+        font-family: "Noto Sans KR", sans-serif;
+        color: var(--text);
+        background: var(--white);
+        overflow-x: hidden;
+      }
+
+      nav {
+        position: sticky;
+        top: 0;
+        z-index: 100;
+        background: var(--white);
+        display: flex;
+        align-items: center;
+        padding: 0 60px;
+        height: 84px;
+        box-shadow: 0 1px 0 rgba(0, 0, 0, 0.06);
+      }
+
+      .nav-logo {
+        font-family: "Agbalumo", cursive;
+        font-size: 36px;
+        color: var(--green-dark);
+        margin-right: 64px;
+        letter-spacing: 0px;
+      }
+
+      .agbalumo {
+        font-family: "Agbalumo", cursive;
+        font-weight: normal;
+        font-size: 1.3em;
+      }
+
+      .nav-links {
+        display: flex;
+        gap: 32px;
+      }
+
+      .nav-links a {
+        text-decoration: none;
+        font-size: 20px;
+        font-weight: 500;
+        color: var(--text);
+        transition: color 0.2s;
+      }
+
+      .nav-links a:hover {
+        color: var(--green-dark);
+      }
+
+      .hero {
+        background: var(--green);
+        border-radius: 0 0 40px 40px;
+
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+
+        padding: 100px 80px;
+        position: relative;
+        overflow: hidden;
+      }
+      .hero-image {
+        position: absolute;
+        right: 0;
+        bottom: 0;
+        top: 0;
+
+        display: flex;
+        align-items: flex-end;
+      }
+
+      .hero-image img {
+        height: 100%;
+        width: auto;
+        display: block;
+      }
+
+      .hero-text {
+        max-width: 760px;
+        position: relative;
+        z-index: 2;
+      }
+
+      .hero-text h1 {
+        font-size: 42px;
+        font-weight: 600;
+        line-height: 1.2;
+        color: #004b2b;
+        margin-bottom: 40px;
+      }
+
+      .hero-text h1 em {
+        font-family: "Nunito", sans-serif;
+        font-style: italic;
+        display: block;
+        font-size: 52px;
+      }
+
+      .hero-text p {
+        font-size: 20px;
+        font-weight: 520;
+        color: #004b2b;
+        margin-bottom: 34px;
+        line-height: 1.6;
+      }
+
+      .btn {
+        display: inline-block;
+        background: var(--white);
+        color: var(--green-dark);
+        font-size: 16px;
+        font-weight: 700;
+        padding: 12px 28px;
+        border-radius: 50px;
+        text-decoration: none;
+        transition:
+          transform 0.2s,
+          box-shadow 0.2s;
+        box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
+      }
+
+      .btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.18);
+      }
+
+      .hero::before,
+      .hero::after {
+        content: "";
+        position: absolute;
+        border-radius: 50%;
+        background: rgba(255, 255, 255, 0.25);
+      }
+      .hero::after {
+        width: 55px;
+        height: 55px;
+        left: 900px;
+        bottom: 100px;
+        background: #dbf4de;
+        z-index: 2;
+      }
+      .hero .small-dot {
+        position: absolute;
+        width: 25px;
+        height: 25px;
+        left: 860px;
+        bottom: 70px;
+        border-radius: 50%;
+        background: #dbf4de;
+        z-index: 2;
+      }
+
+      .hero::before {
+        content: "";
+        position: absolute;
+
+        width: 900px;
+        height: 900px;
+
+        right: -250px;
+        top: -180px;
+
+        border-radius: 50%;
+        background: #dbf4de;
+      }
+
+      section {
+        padding: 80px 60px;
+      }
+
+      .section-title {
+        text-align: center;
+        font-family: "Agbalumo", cursive;
+        font-style: normal;
+        font-size: 40px;
+        font-weight: 500;
+        color: var(--text);
+        margin-bottom: 36px;
+      }
+      .section-title .agbalumo {
+        font-size: 1em;
+        font-style: normal;
+      }
+
+      .section-sub {
+        text-align: center;
+        font-size: 20px;
+        font-weight: 480;
+        color: #004b2b;
+        line-height: 1.7;
+        margin-bottom: 120px;
+      }
+
+      .ad-box {
+        background: var(--green-pale);
+        border: 1.5px solid var(--green-mid);
+        border-radius: var(--radius);
+
+        width: 80%;
+        max-width: 1920px;
+
+        aspect-ratio: 16 / 9;
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        font-size: 18px;
+        color: var(--text-sub);
+
+        margin: 0 auto;
+      }
+
+      .check-section {
+        background: var(--green-light);
+        border-radius: 0;
+        min-height: 600px;
+        padding: 80px;
+        margin: 0 40px;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .check-text {
+        flex: 1;
+      }
+
+      .check-text h2 {
+        font-size: 30px;
+        font-weight: 700;
+        line-height: 1.35;
+        margin-bottom: 20px;
+      }
+
+      .check-text p {
+        font-size: 20px;
+        font-weight: 500;
+        color: #004b2b;
+        margin-bottom: 24px;
+      }
+
+      .check-icons {
+        display: flex;
+        gap: 14px;
+        flex-wrap: wrap;
+      }
+
+      .check-icon {
+        width: 56px;
+        height: 56px;
+        background: var(--green);
+        border-radius: 14px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .check-icon svg {
+        width: 40px;
+        height: 40px;
+        fill: white;
+      }
+      .check-visual {
+        position: absolute;
+        left: 50%;
+        bottom: 0;
+        transform: translateX(-50%);
+        z-index: 1;
+      }
+      .click-text {
+        position: absolute;
+
+        top: 300px;
+        right: 400px;
+
+        font-size: 24px;
+        font-weight: 500;
+        color: #004b2b;
+
+        transform: rotate(15deg);
+
+        z-index: 99;
+      }
+
+      .check-visual::before {
+        content: "";
+        position: absolute;
+
+        width: 900px;
+        height: 900px;
+
+        background: #b4f3d4;
+        border-radius: 50%;
+
+        left: 70%;
+        bottom: -450px;
+        transform: translateX(-50%);
+
+        z-index: -1;
+      }
+
+      .check-visual img {
+        width: 400px;
+        display: block;
+        margin-left: 260px;
+      }
+
+      .check-bottom {
+        padding: 24px 80px 40px;
+        margin: 0 40px;
+      }
+
+      .service-note {
+        font-size: 16px;
+        color: var(--text-sub);
+        text-align: right;
+      }
+
+      .services-section {
+        background: var(--white);
+      }
+
+      .service-card {
+        margin-top: 60px;
+        margin-bottom: 32px;
+        padding: 40px;
+        border: 1.5px solid var(--green-light);
+        border-radius: var(--radius);
+        background: var(--white);
+        text-align: center;
+        transition:
+          box-shadow 0.25s,
+          transform 0.25s;
+      }
+      .service-layout {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 40px;
+
+        text-align: left;
+      }
+
+      .service-image {
+        flex: 1;
+      }
+
+      .service-image img {
+        width: 100%;
+        display: block;
+      }
+
+      .service-info {
+        flex: 1;
+      }
+      .service-card:hover {
+        box-shadow: 0 8px 32px rgba(46, 204, 122, 0.15);
+        transform: translateY(-3px);
+      }
+
+      .service-info h3 {
+        font-size: 24px;
+        font-weight: 800;
+        margin-bottom: 20px;
+      }
+
+      .service-info p {
+        font-size: 20px;
+        color: var(--text-sub);
+        line-height: 1.7;
+        margin-bottom: 40px;
+      }
+
+      .btn-outline {
+        display: inline-block;
+        border: 2px solid var(--green);
+        color: var(--green-dark);
+        background: transparent;
+        font-size: 16px;
+        font-weight: 700;
+        padding: 10px 24px;
+        border-radius: 50px;
+        text-decoration: none;
+        transition:
+          background 0.2s,
+          color 0.2s;
+      }
+
+      .btn-outline:hover {
+        background: var(--green);
+        color: var(--white);
+      }
+
+      footer {
+        background: var(--green);
+        padding: 28px 60px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        font-size: 13px;
+        color: var(--text-sub);
+        border-top: 1px solid var(--green-light);
+      }
+
+      footer .foot-logo {
+        font-family: "Agbalumo", cursive;
+        font-weight: 500;
+        font-size: 17px;
+        color: #004b2b;
+      }
+
+      footer .foot-links {
+        display: flex;
+        font-weight: 500;
+        gap: 20px;
+      }
+
+      footer .foot-links a {
+        color: var(--text-sub);
+        text-decoration: none;
+      }
+
+      footer .foot-links a:hover {
+        color: var(--green-light);
+      }
+      #service {
+        scroll-margin-top: 50px;
+      }
+      @keyframes fadeUp {
+        from {
+          opacity: 0;
+          transform: translateY(30px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      .fade-up {
+        animation: fadeUp 0.6s ease both;
+      }
+
+      .reveal {
+        opacity: 0;
+        transform: translateY(28px);
+        transition:
+          opacity 0.55s ease,
+          transform 0.55s ease;
+      }
+
+      .reveal.visible {
+        opacity: 1;
+        transform: none;
+      }
+      .video-box video {
+        display: block;
+        width: 80%;
+        height: auto;
+        margin: 0 auto;
+        object-fit: cover;
+        border-radius: 22px;
+      }
+    </style>
+  </head>
+
+  <body>
+    <nav>
+      <span class="nav-logo">All Life</span>
+      <div class="nav-links">
+        <a href="index copy.html">Home</a>
+        <a href="service.html">Service</a>
+        <a href="mobile.html">Mobile</a>
+      </div>
+    </nav>
+
+    <header class="hero">
+      <div class="small-dot"></div>
+      <div class="hero-text fade-up">
+        <h1>
+          당신의 일상을<br />
+          <span class="agbalumo">All Life</span> 로 관리 해보세요!
+        </h1>
+
+        <p>당신에게 가장 필요한 순간에 가장 적합한 서비스를 제공합니다.</p>
+
+        <a href="#service" class="btn">Go to Service</a>
+      </div>
+
+      <div class="hero-image">
+        <img src="snap/p2.png" alt="캐릭터" />
+      </div>
+    </header>
+
+    <section>
+      <p class="section-title reveal">
+        <span class="agbalumo">All in one Life</span>
+      </p>
+      <p class="section-sub reveal">
+        모든 일상을 통합해보세요.<br />
+        클릭 한 번의 동의만으로 효율적인 삶을 경험할 수 있어요.
+      </p>
+      <div class="video-box">
+        <video autoplay muted loop controls>
+          <source src="snap/mm.mp4" type="video/mp4" />
+        </video>
+      </div>
+    </section>
+
+    <section class="services-section" id="service">
+      <p class="section-title service-title reveal">Our service</p>
+
+      <div class="service-card service-layout reveal">
+        <div class="service-image">
+          <img src="snap/q1.png" alt="위치기반 서비스" />
+        </div>
+
+        <div class="service-info">
+          <h3>실시간 위치 기반 서비스</h3>
+          <p>
+            현재 위치를 분석하여 주변 맛집, 편의시설, 맞춤 정보를 제공합니다.<br />
+            언제 어디서든, 당신에게 최적의 선택을 안내합니다.
+          </p>
+          <a href="service.html#location" class="btn-outline">Go to Service</a>
+        </div>
+      </div>
+
+      <div class="service-card service-layout reveal">
+        <div class="service-image">
+          <img src="snap/q2.png" alt="스타일 관리" />
+        </div>
+
+        <div class="service-info">
+          <h3>카메라 & 이미지 기반 스타일 관리</h3>
+          <p>
+            당신의 체형과 취향을 분석하여 오늘의 착장을 추천하고,<br />
+            가상 피팅으로 미리 확인할 수 있습니다.
+          </p>
+          <a href="service.html#style" class="btn-outline">Go to Service</a>
+        </div>
+      </div>
+
+      <div class="service-card service-layout reveal">
+        <div class="service-image">
+          <img src="snap/q3.png" alt="음성 광고" />
+        </div>
+
+        <div class="service-info">
+          <h3>음성 데이터 기반 맞춤 광고</h3>
+          <p>
+            일상 속 음성을 기반으로 24시간 음성 데이터를 분석하여<br />
+            더 정확한 광고와 서비스를 제공합니다.
+          </p>
+          <a href="service.html#voice" class="btn-outline">Go to Service</a>
+        </div>
+      </div>
+
+      <div class="service-card service-layout reveal">
+        <div class="service-image">
+          <img src="snap/q4.png" alt="통화 관리" />
+        </div>
+
+        <div class="service-info">
+          <h3>스팸 차단, 통화 요약 정리 서비스</h3>
+          <p>
+            주소록 & 통화 기록을 연동하여<br />
+            더 안전하고 효율적인 커뮤니케이션을 지원합니다.
+          </p>
+          <a href="service.html#call" class="btn-outline">Go to Service</a>
+        </div>
+      </div>
+    </section>
+
+    <footer>
+      <span class="foot-logo">All Life</span>
+      <div class="foot-links">
+        <a href="#">About</a>
+        <a href="#">Tip</a>
+      </div>
+      <span>© All Life</span>
+    </footer>
+
+    <script>
+      const reveals = document.querySelectorAll(".reveal");
+
+      const io = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((e) => {
+            if (e.isIntersecting) {
+              e.target.classList.add("visible");
+              io.unobserve(e.target);
+            }
+          });
+        },
+        { threshold: 0.12 },
+      );
+
+      reveals.forEach((el) => io.observe(el));
+    </script>
+  </body>
+</html>
